@@ -1,0 +1,97 @@
+---
+// src/components/Hero.astro
+---
+
+<section
+    class="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden"
+>
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+        <img
+            src="https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Piscina y ambiente campestre en Búzios"
+            class="w-full h-full object-cover"
+        />
+        <div
+            class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"
+        >
+        </div>
+    </div>
+
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+        <span
+            class="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm tracking-wider uppercase mb-6 shadow-sm border border-white/30"
+        >
+            Tu retiro en Búzios
+        </span>
+        <h1
+            class="text-4xl md:text-6xl lg:text-7xl font-serif font-bold text-white mb-6 drop-shadow-md leading-tight"
+        >
+            Tranquilidad y Naturaleza <br />
+            <span class="text-[#E8DCC4] italic font-normal">cerca del mar</span>
+        </h1>
+        <p
+            class="text-lg md:text-xl text-gray-100 mb-10 max-w-2xl mx-auto font-light drop-shadow"
+        >
+            Lofts amplios con piscina y un gran jardín a solo pasos de Praia do
+            Forno y Rua das Pedras.
+        </p>
+
+        <div
+            class="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+            <a
+                href="https://wa.me/5522997830238"
+                target="_blank"
+                class="px-8 py-4 bg-[#D96C06] hover:bg-[#c26005] text-white rounded-full font-medium text-lg transition-transform hover:scale-105 shadow-xl w-full sm:w-auto"
+            >
+                Consultar Disponibilidad
+            </a>
+            <a
+                href="#alojamiento"
+                class="px-8 py-4 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/50 rounded-full font-medium text-lg transition-colors w-full sm:w-auto"
+            >
+                Ver Lofts & Suítes
+            </a>
+        </div>
+
+        <!-- Review Highlight Mini -->
+        <div
+            class="mt-12 inline-flex items-center gap-3 bg-black/40 backdrop-blur-md rounded-2xl p-3 border border-white/10"
+        >
+            <div class="flex flex-col items-start px-2">
+                <div class="flex text-yellow-400 text-sm">★★★★★</div>
+                <span class="text-white text-xs font-medium"
+                    >"Excelente ubicación, cerca de Rua das Pedras y playas."</span
+                >
+            </div>
+            <div
+                class="w-8 h-8 rounded-full overflow-hidden border border-white/20"
+            >
+                <img
+                    src="https://ui-avatars.com/api/?name=Alex+Silva&background=random"
+                    alt="Reviewer"
+                    class="w-full h-full object-cover"
+                />
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Down Indicator -->
+    <div
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce cursor-pointer"
+        onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})"
+    >
+        <svg
+            class="w-6 h-6 text-white/70 hover:text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg
+        >
+    </div>
+</section>
