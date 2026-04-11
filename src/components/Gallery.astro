@@ -1,0 +1,371 @@
+---
+// src/components/Gallery.astro
+const images = [
+    { src: "2.webp",  alt: "Piscina y exterior" },
+    { src: "3.webp",  alt: "Habitación acogedora" },
+    { src: "4.webp",  alt: "Detalle del jardín" },
+    { src: "5.webp",  alt: "Desayuno buffet" },
+    { src: "6.webp",  alt: "Vista nocturna" },
+    { src: "7.webp",  alt: "Área común" },
+    { src: "8.webp",  alt: "Baño suite" },
+    { src: "9.webp",  alt: "Entorno natural" },
+    { src: "10.webp", alt: "Fachada loft" },
+    { src: "11.webp", alt: "Paseo en buggy" },
+    { src: "12.webp", alt: "Atardecer en Búzios" },
+    { src: "13.webp", alt: "Cocina equipada" },
+    { src: "14.webp", alt: "Relax en familia" },
+    { src: "15.webp", alt: "Detalle decoración" },
+];
+
+const base = import.meta.env.BASE_URL;
+---
+
+<!-- ══════════════════════════════════════
+     GALLERY SECTION
+══════════════════════════════════════ -->
+<section id="galeria" class="py-24 bg-soft-white overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Heading -->
+        <div class="text-center max-w-2xl mx-auto mb-16">
+            <span class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm mb-2 block">Visualiza tu Estancia</span>
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-primary-green mb-6 leading-tight">
+                Nuestra Galería de <br />
+                <span class="text-sage-green italic font-normal">Experiencias</span>
+            </h2>
+            <p class="text-gray-600 text-lg">
+                Un recorrido visual por nuestros espacios, pensados para tu máximo confort y relax.
+            </p>
+        </div>
+
+        <!-- Masonry Grid -->
+        <div class="relative">
+            <div
+                id="gallery-grid"
+                class="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 max-h-[800px] overflow-hidden transition-[max-height] duration-700 ease-in-out"
+            >
+                {images.map((img, index) => (
+                    <div
+                        class="gallery-item break-inside-avoid relative group rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 cursor-pointer"
+                        data-index={index}
+                    >
+                        <img
+                            src={`${base}/images/${img.src}`}
+                            alt={img.alt}
+                            loading="lazy"
+                            class="w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <!-- Hover Overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-4">
+                            <span class="text-white text-sm font-semibold tracking-wide translate-y-3 group-hover:translate-y-0 transition-transform duration-400">{img.alt}</span>
+                            <span class="text-white/70 text-xs mt-0.5 translate-y-3 group-hover:translate-y-0 transition-transform duration-500 delay-75">Ver en pantalla completa →</span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            <!-- Fade overlay + expand btn -->
+            <div
+                id="gallery-overlay"
+                class="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-soft-white via-soft-white/80 to-transparent z-10 flex items-end justify-center pb-6 transition-opacity duration-500"
+            >
+                <button
+                    id="btn-show-all"
+                    class="group inline-flex items-center gap-2 bg-primary-green hover:bg-sage-green text-white px-8 py-3.5 rounded-full font-bold shadow-xl transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                >
+                    <svg class="w-4 h-4 transition-transform group-hover:rotate-45 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Ver todas las fotos
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     LIGHTBOX MODAL
+══════════════════════════════════════ -->
+<div id="lightbox" class="lightbox fixed inset-0 z-[200] hidden">
+
+    <!-- Blurred / dark backdrop -->
+    <div id="lb-backdrop" class="absolute inset-0 bg-black/0 backdrop-blur-0 transition-all duration-500"></div>
+
+    <!-- Modal panel -->
+    <div id="lb-panel" class="absolute inset-0 flex flex-col opacity-0 scale-[0.97] transition-all duration-500">
+
+        <!-- ── TOP BAR ─────────────────────── -->
+        <header class="flex-shrink-0 flex items-center justify-between px-6 py-4 z-10">
+            <!-- Counter -->
+            <span id="lb-counter" class="text-white/60 text-sm font-medium tracking-widest tabular-nums"></span>
+            <!-- Caption -->
+            <span id="lb-caption" class="text-white font-serif italic text-base sm:text-lg text-center flex-1 mx-4 drop-shadow"></span>
+            <!-- Close btn -->
+            <button id="lb-close" class="w-10 h-10 flex items-center justify-center text-white/50 hover:text-white rounded-full hover:bg-white/10 transition-all duration-200" aria-label="Cerrar">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </header>
+
+        <!-- ── MAIN IMAGE AREA ─────────────── -->
+        <main class="flex-grow relative flex items-center justify-center overflow-hidden px-16">
+
+            <!-- Image wrapper (handles slide animation) -->
+            <div id="lb-img-wrapper" class="relative w-full h-full flex items-center justify-center">
+                <img
+                    id="lb-img"
+                    src=""
+                    alt=""
+                    class="max-w-full max-h-full object-contain rounded-lg shadow-2xl select-none"
+                    draggable="false"
+                />
+            </div>
+
+            <!-- Prev nav -->
+            <button id="lb-prev" class="lb-nav-btn absolute left-4 top-1/2 -translate-y-1/2" aria-label="Anterior">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+
+            <!-- Next nav -->
+            <button id="lb-next" class="lb-nav-btn absolute right-4 top-1/2 -translate-y-1/2" aria-label="Siguiente">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </main>
+
+        <!-- ── THUMBNAIL STRIP ────────────── -->
+        <footer class="flex-shrink-0 py-3">
+            <div id="lb-thumbs" class="flex gap-2.5 overflow-x-auto items-center justify-start px-6 pb-1">
+                {images.map((img, index) => (
+                    <button
+                        class="thumb-btn flex-shrink-0 w-16 h-11 sm:w-20 sm:h-14 rounded-lg overflow-hidden border-2 border-white/10 hover:border-white/60 transition-all duration-200"
+                        data-index={index}
+                        aria-label={img.alt}
+                    >
+                        <img
+                            src={`${base}/images/${img.src}`}
+                            alt={img.alt}
+                            class="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity duration-200"
+                        />
+                    </button>
+                ))}
+            </div>
+        </footer>
+
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     STYLES
+══════════════════════════════════════ -->
+<style>
+    img { height: auto; }
+
+    /* ── Lightbox open state ── */
+    .lightbox.is-open { display: block; }
+
+    /* ── Nav buttons ── */
+    .lb-nav-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 9999px;
+        color: rgba(255,255,255,.55);
+        background: rgba(255,255,255,.06);
+        border: 1px solid rgba(255,255,255,.12);
+        backdrop-filter: blur(6px);
+        transition: color .2s, background .2s, transform .2s, border-color .2s;
+    }
+    .lb-nav-btn:hover {
+        color: #fff;
+        background: rgba(255,255,255,.16);
+        border-color: rgba(255,255,255,.35);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    /* ── Thumbnail active ── */
+    .thumb-btn.active {
+        border-color: #E8DCC4 !important;
+        transform: scale(1.08);
+    }
+    .thumb-btn.active img { opacity: 1 !important; }
+
+    /* thumbnail strip scrollbar */
+    #lb-thumbs {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(255,255,255,.2) transparent;
+    }
+    #lb-thumbs::-webkit-scrollbar { height: 3px; }
+    #lb-thumbs::-webkit-scrollbar-track { background: transparent; }
+    #lb-thumbs::-webkit-scrollbar-thumb { background: rgba(255,255,255,.2); border-radius: 9999px; }
+
+    /* ── Image slide animation ── */
+    @keyframes slideInFromRight {
+        from { opacity: 0; transform: translateX(60px); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInFromLeft {
+        from { opacity: 0; transform: translateX(-60px); }
+        to   { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    #lb-img.anim-right { animation: slideInFromRight .35s cubic-bezier(.25,.46,.45,.94) both; }
+    #lb-img.anim-left  { animation: slideInFromLeft  .35s cubic-bezier(.25,.46,.45,.94) both; }
+    #lb-img.anim-fade  { animation: fadeIn            .3s ease both; }
+
+    /* gallery items img height reset */
+    .gallery-item img { height: auto; }
+</style>
+
+<!-- ══════════════════════════════════════
+     SCRIPT
+══════════════════════════════════════ -->
+<script is:inline define:vars={{ images, base }}>
+    /* ─── Gallery expand ─── */
+    const grid      = document.getElementById('gallery-grid');
+    const overlay   = document.getElementById('gallery-overlay');
+    const btnShowAll = document.getElementById('btn-show-all');
+
+    if (btnShowAll) {
+        btnShowAll.addEventListener('click', () => {
+            grid.style.maxHeight = '9999px';
+            overlay.style.opacity = '0';
+            overlay.style.pointerEvents = 'none';
+            setTimeout(() => overlay.remove(), 600);
+        });
+    }
+
+    /* ─── Lightbox state ─── */
+    const lightbox   = document.getElementById('lightbox');
+    const backdrop   = document.getElementById('lb-backdrop');
+    const panel      = document.getElementById('lb-panel');
+    const lbImg      = document.getElementById('lb-img');
+    const lbCaption  = document.getElementById('lb-caption');
+    const lbCounter  = document.getElementById('lb-counter');
+    const lbClose    = document.getElementById('lb-close');
+    const lbPrev     = document.getElementById('lb-prev');
+    const lbNext     = document.getElementById('lb-next');
+    const lbThumbs   = document.getElementById('lb-thumbs');
+    const thumbBtns  = document.querySelectorAll('.thumb-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
+
+    let current = 0;
+    let animating = false;
+
+    /* ─── Open ─── */
+    function openLightbox(index) {
+        current = parseInt(index);
+        lightbox.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+        // slight delay so display:block renders first
+        requestAnimationFrame(() => {
+            backdrop.style.background = 'rgba(0,0,0,0.88)';
+            backdrop.style.backdropFilter = 'blur(14px)';
+            panel.style.opacity = '1';
+            panel.style.transform = 'scale(1)';
+            renderImage('fade');
+        });
+    }
+
+    /* ─── Close ─── */
+    function closeLightbox() {
+        backdrop.style.background = 'rgba(0,0,0,0)';
+        backdrop.style.backdropFilter = 'blur(0px)';
+        panel.style.opacity = '0';
+        panel.style.transform = 'scale(0.97)';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+            document.body.style.overflow = '';
+        }, 500);
+    }
+
+    /* ─── Render image with animation ─── */
+    function renderImage(animClass) {
+        if (animating) return;
+        animating = true;
+
+        // remove previous anim classes
+        lbImg.classList.remove('anim-right', 'anim-left', 'anim-fade');
+
+        const img = images[current];
+        lbImg.src = `${base}/images/${img.src}`;
+        lbImg.alt = img.alt;
+        lbCaption.textContent = img.alt;
+        lbCounter.textContent = `${current + 1} / ${images.length}`;
+
+        // force reflow then add class
+        void lbImg.offsetWidth;
+        lbImg.classList.add(animClass);
+
+        // sync thumbnails
+        thumbBtns.forEach((btn, i) => {
+            btn.classList.toggle('active', i === current);
+        });
+        // scroll active thumb into view
+        const activeThumb = lbThumbs.querySelectorAll('.thumb-btn')[current];
+        if (activeThumb) activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+
+        setTimeout(() => { animating = false; }, 380);
+    }
+
+    /* ─── Navigate ─── */
+    function goNext() {
+        if (animating) return;
+        current = (current + 1) % images.length;
+        renderImage('anim-right');
+    }
+    function goPrev() {
+        if (animating) return;
+        current = (current - 1 + images.length) % images.length;
+        renderImage('anim-left');
+    }
+
+    /* ─── Events ─── */
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => openLightbox(item.dataset.index));
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lbNext.addEventListener('click', goNext);
+    lbPrev.addEventListener('click', goPrev);
+
+    thumbBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (animating) return;
+            const idx = parseInt(btn.dataset.index);
+            const dir = idx > current ? 'anim-right' : 'anim-left';
+            current = idx;
+            renderImage(dir);
+        });
+    });
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+        if (lightbox.style.display === 'none' || lightbox.style.display === '') return;
+        if (e.key === 'Escape')      closeLightbox();
+        if (e.key === 'ArrowRight')  goNext();
+        if (e.key === 'ArrowLeft')   goPrev();
+    });
+
+    // Backdrop click to close
+    backdrop.addEventListener('click', closeLightbox);
+
+    // Touch swipe support
+    let touchStartX = 0;
+    panel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+    panel.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 50) dx < 0 ? goNext() : goPrev();
+    }, { passive: true });
+</script>
