@@ -1,7 +1,7 @@
 ---
 // src/components/Navbar.astro
 const navItems = [
-    { name: "Inicio", href: "/" },
+    { name: "Inicio", href: "#" },
     { name: "Alojamiento", href: "#alojamiento" },
     { name: "Servicios", href: "#servicios" },
     { name: "Ubicación", href: "#ubicacion" },
@@ -17,7 +17,7 @@ const navItems = [
         <div class="flex justify-between items-center h-20">
             <div class="flex-shrink-0 flex items-center">
                 <a
-                    href={import.meta.env.BASE_URL}
+                    href="#"
                     class="flex flex-col items-center group"
                 >
                     <span
