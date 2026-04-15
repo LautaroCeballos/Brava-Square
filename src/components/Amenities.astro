@@ -1,84 +1,115 @@
 ---
 // src/components/Amenities.astro
+const base = import.meta.env.BASE_URL;
+
 const amenitiesList = [
     {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12.551A9.957 9.957 0 0012 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10 2.227 0 4.288-.732 5.926-1.956.195-.15.422-.228.653-.228h1.284a1.137 1.137 0 001.137-1.137v-1.284c0-.231.078-.458.228-.653A9.957 9.957 0 0021 12.55z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 11h.01M12 11h.01M9 11h.01" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 2v2M12 20v2M4.929 4.929l1.414 1.414M17.657 17.657l1.414 1.414M2 12h2M20 12h2M4.929 19.071l1.414-1.414M17.657 6.343l1.414-1.414" /></svg>`,
+        img: "5.webp",
         title: "Piscina 24 Horas",
-        description:
-            "Excelente piscina limpia y disponible todo el día para refrescarse del calor de Búzios.",
+        description: "Excelente piscina limpia y disponible todo el día para refrescarse del calor de Búzios.",
+        tag: "Destacado",
     },
     {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 21h8" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 17v4" /></svg>`,
+        img: "13.webp",
         title: "Sala y Cocina",
-        description:
-            "Lofts y suítes totalmente equipados con sala de estar y cocina americana para mayor comodidad.",
+        description: "Lofts y suítes totalmente equipados con sala de estar y cocina americana para mayor comodidad.",
+        tag: "Incluido",
     },
     {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>`,
+        img: "12.webp",
         title: "Excelente Ubicación",
-        description:
-            "A pasos de Praia do Forno, Praia Brava y sólo 10 min caminando a Rua das Pedras.",
+        description: "A pasos de Praia do Forno y sólo 10 min caminando a Rua das Pedras.",
+        tag: "Ubicación",
     },
     {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" /></svg>`,
+        img: "2.webp",
         title: "Desayuno Buffet",
-        description:
-            "Empiece el día con pan recién hecho, pasteles, y fruta fresca de temporada.",
+        description: "Empiece el día con pan recién hecho, pasteles, y fruta fresca de temporada.",
+        tag: "Incluido",
     },
     {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>`,
+        img: "14.webp",
         title: "Tours y Buggy",
-        description:
-            "Asistencia directa con paseos en buggy y barco para que aproveches Búzios al máximo.",
+        description: "Asistencia directa con paseos en buggy y barco para que aproveches Búzios al máximo.",
+        tag: "Actividades",
     },
     {
-        icon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>`,
+        img: "11.webp",
         title: "Ambiente Familiar",
-        description:
-            "Camas cómodas, sábanas planchadas y un entorno seguro y silencioso ideal para familias.",
+        description: "Entorno seguro, silencioso y amplio ideal para familias con niños.",
+        tag: "Familia",
     },
 ];
 ---
 
-<section id="servicios" class="py-20 bg-primary-green relative">
-    <!-- Subtle pattern background -->
-    <div
-        class="absolute inset-0 opacity-5"
-        style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 24px 24px;"
-    >
-    </div>
+<section id="servicios" class="py-24 bg-[#1a3a20] relative overflow-hidden">
+
+    <!-- Decorative blobs -->
+    <div class="absolute -top-32 -left-32 w-96 h-96 bg-sage-green/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-[#D96C06]/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2
-                class="text-3xl md:text-4xl font-serif font-bold text-white mb-4"
-            >
-                Servicios que marcan <span class="text-sand italic font-normal"
-                    >la diferencia</span
-                >
-            </h2>
-            <p class="text-gray-200 text-lg font-light">
-                Descubre por qué nuestros huéspedes valoran nuestro espacio como
-                su segundo hogar en la playa.
+
+        <!-- Heading -->
+        <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
+            <div>
+                <span class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm block mb-2">Lo que te espera</span>
+                <h2 class="text-3xl md:text-5xl font-serif font-bold text-white leading-tight">
+                    Servicios que marcan <br class="hidden md:block"/>
+                    <span class="text-sand italic font-normal">la diferencia</span>
+                </h2>
+            </div>
+            <p class="text-white/60 text-base max-w-xs leading-relaxed">
+                Descubre por qué nuestros huéspedes nos eligen como su segundo hogar en Búzios.
             </p>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {
-                amenitiesList.map((item) => (
-                    <div class="bg-white/10 backdrop-blur-sm border border-white/20 p-8 rounded-2xl hover:bg-white/20 transition-all duration-300 group">
-                        <div class="w-14 h-14 rounded-full bg-sand text-[#D96C06] flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-[#D96C06] group-hover:text-white transition-all">
-                            <Fragment set:html={item.icon} />
-                        </div>
-                        <h3 class="text-xl font-bold text-white mb-3 tracking-wide">
-                            {item.title}
-                        </h3>
-                        <p class="text-white/80 leading-relaxed font-light">
-                            {item.description}
-                        </p>
+        <!-- Cards grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {amenitiesList.map((item, i) => (
+                <div class="amenity-card group relative rounded-3xl overflow-hidden cursor-default" style={`--delay: ${i * 80}ms`}>
+
+                    <!-- Full-bleed image -->
+                    <div class="relative h-64 overflow-hidden">
+                        <img
+                            src={`${base}/images/${item.img}`}
+                            alt={item.title}
+                            loading="lazy"
+                            class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                        />
+                        <!-- Gradient overlay -->
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent"></div>
+
+                        <!-- Tag chip top-left -->
+                        <span class="absolute top-4 left-4 text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full bg-white/15 backdrop-blur-sm text-white border border-white/20">
+                            {item.tag}
+                        </span>
                     </div>
-                ))
-            }
+
+                    <!-- Card body -->
+                    <div class="bg-white/8 backdrop-blur-sm border-x border-b border-white/10 rounded-b-3xl px-6 py-5 transition-colors duration-300 group-hover:bg-white/14">
+                        <h3 class="text-lg font-bold text-white mb-1.5 tracking-wide">{item.title}</h3>
+                        <p class="text-white/65 text-sm leading-relaxed">{item.description}</p>
+
+                        <!-- Animated accent line -->
+                        <div class="mt-4 h-0.5 w-8 bg-[#D96C06] rounded-full transition-all duration-500 group-hover:w-16"></div>
+                    </div>
+
+                </div>
+            ))}
         </div>
+
     </div>
 </section>
+
+<style>
+    /* subtle entry animation */
+    .amenity-card {
+        animation: fadeUp 0.5s ease both;
+        animation-delay: var(--delay, 0ms);
+    }
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(24px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+</style>

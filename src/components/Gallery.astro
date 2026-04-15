@@ -1,20 +1,20 @@
 ---
 // src/components/Gallery.astro
 const images = [
-    { src: "2.webp",  alt: "Piscina y exterior" },
-    { src: "3.webp",  alt: "Habitación acogedora" },
-    { src: "4.webp",  alt: "Detalle del jardín" },
-    { src: "5.webp",  alt: "Desayuno buffet" },
-    { src: "6.webp",  alt: "Vista nocturna" },
-    { src: "7.webp",  alt: "Área común" },
-    { src: "8.webp",  alt: "Baño suite" },
-    { src: "9.webp",  alt: "Entorno natural" },
-    { src: "10.webp", alt: "Fachada loft" },
-    { src: "11.webp", alt: "Paseo en buggy" },
-    { src: "12.webp", alt: "Atardecer en Búzios" },
-    { src: "13.webp", alt: "Cocina equipada" },
-    { src: "14.webp", alt: "Relax en familia" },
-    { src: "15.webp", alt: "Detalle decoración" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999663/hero_fltzup.webp",  alt: "Piscina y exterior" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999638/9_bi0wka.webp",  alt: "Habitación acogedora" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999650/6_txbjrs.webp",  alt: "Detalle del jardín" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/photo-1603532232030-69a8264a71f4_ykxxmg.jpg",  alt: "Desayuno buffet" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/photo-1768329051109-9986d6926566_ncadog.jpg",  alt: "Vista nocturna" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999653/11_nbpx5y.webp",  alt: "Área común" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999638/9_bi0wka.webp" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999650/6_txbjrs.webp",  alt: "Entorno natural" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999670/4_azcjkl.webp", alt: "Fachada loft" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999664/14_ktnke4.webp", alt: "Paseo en buggy" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999640/10_yp1svo.webp", alt: "Atardecer en Búzios" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999644/13_r5cfnw.webp", alt: "Cocina equipada" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999663/hero_fltzup.webp", alt: "Relax en familia" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999637/8_hhm1vf.webp", alt: "Detalle decoración" },
 ];
 
 const base = import.meta.env.BASE_URL;
@@ -50,7 +50,7 @@ const base = import.meta.env.BASE_URL;
                         data-index={index}
                     >
                         <img
-                            src={`${base}/images/${img.src}`}
+                            src={`${img.src}`}
                             alt={img.alt}
                             loading="lazy"
                             class="w-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -148,7 +148,7 @@ const base = import.meta.env.BASE_URL;
                         aria-label={img.alt}
                     >
                         <img
-                            src={`${base}/images/${img.src}`}
+                            src={img.src}
                             alt={img.alt}
                             class="w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity duration-200"
                         />
@@ -299,7 +299,7 @@ const base = import.meta.env.BASE_URL;
         lbImg.classList.remove('anim-right', 'anim-left', 'anim-fade');
 
         const img = images[current];
-        lbImg.src = `${base}/images/${img.src}`;
+        lbImg.src = img.src;
         lbImg.alt = img.alt;
         lbCaption.textContent = img.alt;
         lbCounter.textContent = `${current + 1} / ${images.length}`;
