@@ -4,37 +4,37 @@ const base = import.meta.env.BASE_URL;
 
 const amenitiesList = [
     {
-        img: "5.webp",
+        img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999663/hero_fltzup.webp",
         title: "Piscina 24 Horas",
         description: "Excelente piscina limpia y disponible todo el día para refrescarse del calor de Búzios.",
         tag: "Destacado",
     },
     {
-        img: "13.webp",
+        img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999644/13_r5cfnw.webp",
         title: "Sala y Cocina",
         description: "Lofts y suítes totalmente equipados con sala de estar y cocina americana para mayor comodidad.",
         tag: "Incluido",
     },
     {
-        img: "12.webp",
+        img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1776265144/foto-pessoas-caminhando-praia-brava-buzios-rj_j8eynt.jpg",
         title: "Excelente Ubicación",
         description: "A pasos de Praia do Forno y sólo 10 min caminando a Rua das Pedras.",
         tag: "Ubicación",
     },
     {
-        img: "2.webp",
+        img: "https://images.unsplash.com/photo-1596252890311-caa6a004a6ee?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
         title: "Desayuno Buffet",
         description: "Empiece el día con pan recién hecho, pasteles, y fruta fresca de temporada.",
         tag: "Incluido",
     },
     {
-        img: "14.webp",
+        img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999664/14_ktnke4.webp",
         title: "Tours y Buggy",
         description: "Asistencia directa con paseos en buggy y barco para que aproveches Búzios al máximo.",
         tag: "Actividades",
     },
     {
-        img: "11.webp",
+        img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999653/11_nbpx5y.webp",
         title: "Ambiente Familiar",
         description: "Entorno seguro, silencioso y amplio ideal para familias con niños.",
         tag: "Familia",
@@ -72,7 +72,7 @@ const amenitiesList = [
                     <!-- Full-bleed image -->
                     <div class="relative h-64 overflow-hidden">
                         <img
-                            src={`${base}/images/${item.img}`}
+                            src={item.img}
                             alt={item.title}
                             loading="lazy"
                             class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
