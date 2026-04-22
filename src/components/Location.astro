@@ -1,5 +1,28 @@
 ---
-// src/components/Location.astro
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const locationDetails = {
+    pt: [
+        { title: "Praia do Forno", desc: "A apenas 8 minutos a pé. Águas cristalinas e areia rosada ideal para snorkeling." },
+        { title: "Rua das Pedras", desc: "10-15 minutos a pé. O centro gastronômico e comercial mais famoso de Búzios." },
+        { title: "Praia Brava", desc: "A 12 minutos a pé. Praia com ondas perfeita para surf e ambiente de beach clubs." },
+    ],
+    es: [
+        { title: "Praia do Forno", desc: "A tan solo 8 minutos caminando. Aguas cristalinas y arena rosada ideal para snorkeling." },
+        { title: "Rua das Pedras", desc: "10-15 minutos a pie. El centro gastronómico y comercial más famoso de Búzios." },
+        { title: "Praia Brava", desc: "A 12 minutos a pie. Playa con oleaje perfecta para surf y ambiente de beach clubs." },
+    ],
+    en: [
+        { title: "Praia do Forno", desc: "Only 8 minutes walk away. Crystal clear waters and pink sand ideal for snorkeling." },
+        { title: "Rua das Pedras", desc: "10-15 minutes walk. The most famous gastronomic and commercial center of Búzios." },
+        { title: "Praia Brava", desc: "12 minutes walk. Beach with waves perfect for surfing and beach club atmosphere." },
+    ]
+};
+
+const details = locationDetails[lang];
 ---
 
 <section id="ubicacion" class="py-24 bg-white">
@@ -9,21 +32,19 @@
             <div>
                 <span
                     class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm mb-2 block"
-                    >Dónde Estamos</span
+                    >{t('location.badge')}</span
                 >
                 <h2
                     class="text-3xl md:text-5xl font-serif font-bold text-primary-green mb-6 leading-tight"
                 >
-                    La ubicación <span
+                    {t('location.title')} <span
                         class="text-sage-green italic font-normal"
-                        >perfecta</span
+                        >{t('location.highlight')}</span
                     >
                 </h2>
 
                 <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-                    Nuestra posada está estratégicamente ubicada para que puedas
-                    disfrutar de la tranquilidad sin alejarte de los principales
-                    atractivos. Todo a corta distancia a pie.
+                    {t('location.p')}
                 </p>
 
                 <div class="space-y-6">
@@ -50,12 +71,10 @@
                         </div>
                         <div class="ml-4">
                             <h4 class="text-xl font-bold text-gray-900">
-                                Praia do Forno
+                                {details[0].title}
                             </h4>
-                            <p class="text-gray-600 font-lightmt-1">
-                                A tan solo 8 minutos caminando. Aguas
-                                cristalinas y arena rosada ideal para
-                                snorkeling.
+                            <p class="text-gray-600 font-light mt-1">
+                                {details[0].desc}
                             </p>
                         </div>
                     </div>
@@ -78,11 +97,10 @@
                         </div>
                         <div class="ml-4">
                             <h4 class="text-xl font-bold text-gray-900">
-                                Rua das Pedras
+                                {details[1].title}
                             </h4>
                             <p class="text-gray-600 font-light mt-1">
-                                10-15 minutos a pie. El centro gastronómico y
-                                comercial más famoso de Búzios.
+                                {details[1].desc}
                             </p>
                         </div>
                     </div>
@@ -105,11 +123,10 @@
                         </div>
                         <div class="ml-4">
                             <h4 class="text-xl font-bold text-gray-900">
-                                Praia Brava
+                                {details[2].title}
                             </h4>
                             <p class="text-gray-600 font-light mt-1">
-                                A 12 minutos a pie. Playa con oleaje perfecta
-                                para surf y ambiente de beach clubs.
+                                {details[2].desc}
                             </p>
                         </div>
                     </div>

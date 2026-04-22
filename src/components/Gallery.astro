@@ -1,19 +1,42 @@
 ---
 // src/components/Gallery.astro
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const imageAlts = {
+    pt: [
+        "Piscina e exterior", "Quarto aconchegante", "Detalhe do jardim", "Café da manhã buffet", 
+        "Vista noturna", "Área comum", "Ambiente natural", "Fachada loft", 
+        "Passeio de buggy", "Pôr do sol em Búzios", "Cozinha equipada", "Relax em família", "Detalhe da decoração"
+    ],
+    es: [
+        "Piscina y exterior", "Habitación acogedora", "Detalle del jardín", "Desayuno buffet", 
+        "Vista nocturna", "Área común", "Entorno natural", "Fachada loft", 
+        "Paseo en buggy", "Atardecer en Búzios", "Cocina equipada", "Relax en familia", "Detalle decoración"
+    ],
+    en: [
+        "Pool and exterior", "Cozy room", "Garden detail", "Buffet breakfast", 
+        "Night view", "Common area", "Natural environment", "Loft facade", 
+        "Buggy ride", "Sunset in Búzios", "Equipped kitchen", "Family relax", "Decoration detail"
+    ]
+};
+
 const images = [
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999663/hero_fltzup.webp",  alt: "Piscina y exterior" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999638/9_bi0wka.webp",  alt: "Habitación acogedora" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999674/5_vxk5ai.webp",  alt: "Detalle del jardín" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/photo-1603532232030-69a8264a71f4_ykxxmg.jpg",  alt: "Desayuno buffet" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/photo-1768329051109-9986d6926566_ncadog.jpg",  alt: "Vista nocturna" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999653/11_nbpx5y.webp",  alt: "Área común" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999650/6_txbjrs.webp",  alt: "Entorno natural" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999670/4_azcjkl.webp", alt: "Fachada loft" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999664/14_ktnke4.webp", alt: "Paseo en buggy" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999640/10_yp1svo.webp", alt: "Atardecer en Búzios" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999644/13_r5cfnw.webp", alt: "Cocina equipada" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999646/3_slj7d7.webp", alt: "Relax en familia" },
-    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999637/8_hhm1vf.webp", alt: "Detalle decoración" },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999663/hero_fltzup.webp",  alt: imageAlts[lang][0] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999638/9_bi0wka.webp",  alt: imageAlts[lang][1] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999674/5_vxk5ai.webp",  alt: imageAlts[lang][2] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/photo-1603532232030-69a8264a71f4_ykxxmg.jpg",  alt: imageAlts[lang][3] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/photo-1768329051109-9986d6926566_ncadog.jpg",  alt: imageAlts[lang][4] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999653/11_nbpx5y.webp",  alt: imageAlts[lang][5] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999650/6_txbjrs.webp",  alt: imageAlts[lang][6] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999670/4_azcjkl.webp", alt: imageAlts[lang][7] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999664/14_ktnke4.webp", alt: imageAlts[lang][8] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999640/10_yp1svo.webp", alt: imageAlts[lang][9] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999644/13_r5cfnw.webp", alt: imageAlts[lang][10] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999646/3_slj7d7.webp", alt: imageAlts[lang][11] },
+    { src: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999637/8_hhm1vf.webp", alt: imageAlts[lang][12] },
 ];
 
 const base = import.meta.env.BASE_URL;
@@ -27,13 +50,13 @@ const base = import.meta.env.BASE_URL;
 
         <!-- Heading -->
         <div class="text-center max-w-2xl mx-auto mb-16">
-            <span class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm mb-2 block">Visualiza tu Estancia</span>
+            <span class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm mb-2 block">{t('gallery.badge')}</span>
             <h2 class="text-3xl md:text-5xl font-serif font-bold text-primary-green mb-6 leading-tight">
-                Nuestra Galería de <br />
-                <span class="text-sage-green italic font-normal">Experiencias</span>
+                {t('gallery.title')} <br />
+                <span class="text-sage-green italic font-normal">{t('gallery.highlight')}</span>
             </h2>
             <p class="text-gray-600 text-lg">
-                Un recorrido visual por nuestros espacios, pensados para tu máximo confort y relax.
+                {t('gallery.p')}
             </p>
         </div>
 
@@ -57,7 +80,7 @@ const base = import.meta.env.BASE_URL;
                         <!-- Hover Overlay -->
                         <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex flex-col justify-end p-4">
                             <span class="text-white text-sm font-semibold tracking-wide translate-y-3 group-hover:translate-y-0 transition-transform duration-400">{img.alt}</span>
-                            <span class="text-white/70 text-xs mt-0.5 translate-y-3 group-hover:translate-y-0 transition-transform duration-500 delay-75">Ver en pantalla completa →</span>
+                            <span class="text-white/70 text-xs mt-0.5 translate-y-3 group-hover:translate-y-0 transition-transform duration-500 delay-75">{t('gallery.view_fullscreen')}</span>
                         </div>
                     </div>
                 ))}
@@ -75,7 +98,7 @@ const base = import.meta.env.BASE_URL;
                     <svg class="w-4 h-4 transition-transform group-hover:rotate-45 duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                     </svg>
-                    Ver todas las fotos
+                    {t('gallery.btn_show_all')}
                 </button>
             </div>
         </div>

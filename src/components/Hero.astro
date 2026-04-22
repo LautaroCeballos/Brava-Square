@@ -1,5 +1,8 @@
 ---
-// src/components/Hero.astro
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section
@@ -9,7 +12,7 @@
     <div class="absolute inset-0 z-0">
         <img
             src={`${import.meta.env.BASE_URL}/images/hero.webp`}
-            alt="Piscina y ambiente campestre en Búzios"
+            alt={t('hero.title')}
             class="w-full h-full object-cover"
         />
         <!-- Base gradient -->
@@ -22,19 +25,18 @@
         <span
             class="inline-block py-1 px-3 rounded-full bg-white/20 backdrop-blur-sm text-white text-sm tracking-wider uppercase mb-4 shadow-sm border border-white/30"
         >
-            Tu retiro en Búzios
+            {t('hero.badge')}
         </span>
         <h1
             class="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-4 drop-shadow-md leading-tight"
         >
-            Tranquilidad y Naturaleza <br />
-            <span class="text-[#E8DCC4] italic font-normal">cerca del mar</span>
+            {t('hero.title')} <br />
+            <span class="text-[#E8DCC4] italic font-normal">{t('hero.highlight')}</span>
         </h1>
         <p
             class="text-sm md:text-base text-gray-100 mb-6 max-w-xl mx-auto font-light drop-shadow"
         >
-            Lofts amplios con piscina y un gran jardín a solo pasos de Praia do
-            Forno y Rua das Pedras.
+            {t('hero.p')}
         </p>
 
         <div
@@ -45,13 +47,13 @@
                 target="_blank"
                 class="px-6 py-3 bg-[#D96C06] hover:bg-[#c26005] text-white rounded-full font-medium text-sm transition-transform hover:scale-105 shadow-xl w-full sm:w-auto"
             >
-                Consultar Disponibilidad
+                {t('hero.cta1')}
             </a>
             <a
                 href="#alojamiento"
                 class="px-6 py-3 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/50 rounded-full font-medium text-sm transition-colors w-full sm:w-auto"
             >
-                Ver Lofts & Suítes
+                {t('hero.cta2')}
             </a>
         </div>
 
@@ -62,7 +64,7 @@
             <div class="flex flex-col items-start px-2">
                 <div class="flex text-yellow-400 text-sm">★★★★★</div>
                 <span class="text-white text-xs font-medium"
-                    >"Excelente ubicación, cerca de Rua das Pedras y playas."</span
+                    >{t('hero.review')}</span
                 >
             </div>
             <div

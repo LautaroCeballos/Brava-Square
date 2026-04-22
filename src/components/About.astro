@@ -1,5 +1,8 @@
 ---
-// src/components/About.astro
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <section id="about" class="py-24 bg-soft-white relative">
@@ -10,26 +13,18 @@
                 <h2
                     class="text-3xl md:text-4xl font-serif font-bold text-primary-green mb-6 leading-tight"
                 >
-                    Tu retiro tranquilo en <br />
+                    {t('about.title')} <br />
                     <span class="text-sage-green italic font-normal"
-                        >el corazón de Búzios</span
+                        >{t('about.highlight')}</span
                     >
                 </h2>
 
                 <p class="text-gray-600 text-lg mb-6 leading-relaxed">
-                    Ubicados estratégicamente entre la tranquilidad de <strong
-                        >Praia do Forno</strong
-                    > y la vibrante <strong>Rua das Pedras</strong>, Brava
-                    Square Lofts & Suítes te ofrece una experiencia única de
-                    descanso.
+                    {t('about.p1')}
                 </p>
 
                 <p class="text-gray-600 text-lg mb-8 leading-relaxed">
-                    Con nuestro distintivo <em>ambiente campestre</em>, amplio
-                    jardín abierto ideal para familias, y atención cálida a
-                    cargo de nuestros anfitriones, te sentirás como en casa
-                    mientras disfrutas de todas las maravillas que Búzios tiene
-                    para ofrecer.
+                    {t('about.p2')}
                 </p>
 
                 <div class="grid grid-cols-2 gap-6 mb-10">
@@ -40,7 +35,7 @@
                         <p
                             class="text-sm font-medium text-gray-500 uppercase tracking-wide"
                         >
-                            Min a pie a Rua das Pedras
+                            {t('about.feature1')}
                         </p>
                     </div>
                     <div class="border-l-4 border-[#D96C06] pl-4">
@@ -50,7 +45,7 @@
                         <p
                             class="text-sm font-medium text-gray-500 uppercase tracking-wide"
                         >
-                            Piscina Abierta
+                            {t('about.feature2')}
                         </p>
                     </div>
                 </div>
@@ -59,7 +54,7 @@
                     href="#alojamiento"
                     class="inline-flex items-center gap-2 text-[#D96C06] font-semibold text-lg hover:text-[#c26005] transition-colors group"
                 >
-                    Conoce nuestro alojamiento
+                    {t('about.cta')}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 transition-transform group-hover:translate-x-1"

@@ -1,31 +1,28 @@
 ---
-// src/components/Testimonials.astro
-const reviews = [
-    {
-        name: "Pâmela Coutinho",
-        status: "Local Guide",
-        date: "Hace 4 años en Google",
-        comment:
-            "¡Excelente casa de huéspedes! ¡Ubicación perfecta! Ambiente familiar y acogedor. Los dueños son súper amables y simpáticos. Está entre Praia do Forno y Brava, y a 15 min de Rua das Pedras.",
-        rating: 5,
-    },
-    {
-        name: "Alex Silva",
-        status: "Local Guide",
-        date: "Hace 3 años en Google",
-        comment:
-            "Lugar muy tranquilo y silencioso. Cerca de Rua das Pedras y Praia do Forno, todo estaba limpio y la piscina excelente. ¡Excelente relación calidad-precio! El desayuno de primera.",
-        rating: 5,
-    },
-    {
-        name: "Ludmila S. Araujo",
-        status: "Local Guide",
-        date: "Hace 3 años en Google",
-        comment:
-            "¡Excelente recepción! Ronaldo, el anfitrión, es súper servicial. Muy cerca de la playa, habitación amplia con sala de estar, cocina y estacionamiento.",
-        rating: 5,
-    },
-];
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const reviewsTranslations = {
+    pt: [
+        { name: "Pâmela Coutinho", status: "Local Guide", date: "Há 4 anos no Google", comment: "Excelente pousada! Localização perfeita! Ambiente familiar e aconchegante. Os donos são super prestativos e simpáticos. Fica entre a Praia do Forno e Brava, e a 15 min da Rua das Pedras." },
+        { name: "Alex Silva", status: "Local Guide", date: "Há 3 anos no Google", comment: "Lugar muito tranquilo e silencioso. Perto da Rua das Pedras e da Praia do Forno, tudo estava limpo e a piscina excelente. Ótimo custo-benefício! O café da manhã de primeira." },
+        { name: "Ludmila S. Araujo", status: "Local Guide", date: "Há 3 anos no Google", comment: "Excelente recepção! O Ronaldo, anfitrião, é super solícito. Bem pertinho da praia, quarto amplo com sala, cozinha e estacionamento." },
+    ],
+    es: [
+        { name: "Pâmela Coutinho", status: "Local Guide", date: "Hace 4 años en Google", comment: "¡Excelente casa de huéspedes! ¡Ubicación perfecta! Ambiente familiar y acogedor. Los dueños son súper amables y simpáticos. Está entre Praia do Forno y Brava, y a 15 min de Rua das Pedras." },
+        { name: "Alex Silva", status: "Local Guide", date: "Hace 3 años en Google", comment: "Lugar muy tranquilo y silencioso. Cerca de Rua das Pedras y Praia do Forno, todo estaba limpio y la piscina excelente. ¡Excelente relación calidad-precio! El desayuno de primera." },
+        { name: "Ludmila S. Araujo", status: "Local Guide", date: "Hace 3 años en Google", comment: "¡Excelente recepción! Ronaldo, el anfitrión, es súper servicial. Muy cerca de la playa, habitación amplia con sala de estar, cocina y estacionamiento." },
+    ],
+    en: [
+        { name: "Pâmela Coutinho", status: "Local Guide", date: "4 years ago on Google", comment: "Excellent guesthouse! Perfect location! Family and cozy atmosphere. The owners are super helpful and friendly. It is between Praia do Forno and Brava, and 15 min from Rua das Pedras." },
+        { name: "Alex Silva", status: "Local Guide", date: "3 years ago on Google", comment: "Very quiet and peaceful place. Close to Rua das Pedras and Praia do Forno, everything was clean and the pool excellent. Great value for money! First-rate breakfast." },
+        { name: "Ludmila S. Araujo", status: "Local Guide", date: "3 years ago on Google", comment: "Excellent reception! Ronaldo, the host, is super helpful. Very close to the beach, large room with living room, kitchen and parking." },
+    ]
+};
+
+const reviews = reviewsTranslations[lang];
 ---
 
 <section id="opiniones" class="py-24 bg-sand relative overflow-hidden">
@@ -56,12 +53,11 @@ const reviews = [
             <h2
                 class="text-3xl md:text-5xl font-serif font-bold text-primary-green mb-6"
             >
-                Relatos Auténticos de <br />
-                <span class="italic font-normal">Nuestros Huéspedes</span>
+                {t('testimonials.title')} <br />
+                <span class="italic font-normal">{t('testimonials.highlight')}</span>
             </h2>
             <p class="text-gray-700 text-lg">
-                Descubre por qué cientos de familias y parejas eligen nuestro
-                ambiente campestre y hospitalidad.
+                {t('testimonials.p')}
             </p>
         </div>
 
@@ -110,7 +106,7 @@ const reviews = [
                 rel="noopener noreferrer"
                 class="inline-flex items-center text-primary-green hover:text-[#D96C06] font-medium transition-colors"
             >
-                Ver todas las opiniones en Google
+                {t('testimonials.cta')}
                 <svg
                     fill="currentColor"
                     class="w-5 h-5 ml-2"

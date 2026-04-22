@@ -10,10 +10,12 @@ const {
 	title,
 	description = "Su retiro tranquilo en el corazón de Búzios. Lofts amplios, piscina y naturaleza cerca de Praia do Forno.",
 } = Astro.props;
+
+const lang = Astro.currentLocale || "es";
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />

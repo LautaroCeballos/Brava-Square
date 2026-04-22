@@ -1,4 +1,12 @@
 ---
+export function getStaticPaths() {
+  return [
+    { params: { lang: undefined } },
+    { params: { lang: 'es' } },
+    { params: { lang: 'en' } },
+  ];
+}
+
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../components/Navbar.astro";
 import Hero from "../components/Hero.astro";
@@ -9,9 +17,13 @@ import Gallery from "../components/Gallery.astro";
 import Testimonials from "../components/Testimonials.astro";
 import Location from "../components/Location.astro";
 import Footer from "../components/Footer.astro";
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<Layout title="Brava Square LOFTS & Suítes | Alojamiento en Búzios">
+<Layout title={t('site.title')}>
 	<Navbar />
 	<main>
 		<Hero />

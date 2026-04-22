@@ -1,43 +1,60 @@
 ---
-// src/components/Amenities.astro
-const base = import.meta.env.BASE_URL;
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const amenitiesTranslations = {
+    pt: [
+        { title: "Piscina 24 Horas", description: "Excelente piscina limpa e disponível o dia todo para se refrescar do calor de Búzios.", tag: "Destaque" },
+        { title: "Sala e Cozinha", description: "Lofts e suítes totalmente equipados com sala de estar e cozinha americana para maior conforto.", tag: "Incluído" },
+        { title: "Excelente Localização", description: "A poucos passos da Praia do Forno e apenas 10 min caminhando da Rua das Pedras.", tag: "Localização" },
+        { title: "Café da Manhã Buffet", description: "Comece o dia com pães frescos, bolos e frutas da estação.", tag: "Incluído" },
+        { title: "Passeios e Buggy", description: "Assistência direta com passeios de buggy e barco para você aproveitar Búzios ao máximo.", tag: "Atividades" },
+        { title: "Ambiente Familiar", description: "Ambiente seguro, silencioso e amplo, ideal para famílias com crianças.", tag: "Família" },
+    ],
+    es: [
+        { title: "Piscina 24 Horas", description: "Excelente piscina limpia y disponible todo el día para refrescarse del calor de Búzios.", tag: "Destacado" },
+        { title: "Sala y Cocina", description: "Lofts y suítes totalmente equipados con sala de estar y cocina americana para mayor comodidad.", tag: "Incluido" },
+        { title: "Excelente Ubicación", description: "A pasos de Praia do Forno y sólo 10 min caminando a Rua das Pedras.", tag: "Ubicación" },
+        { title: "Desayuno Buffet", description: "Empiece el día con pan recién hecho, pasteles, y fruta fresca de temporada.", tag: "Incluido" },
+        { title: "Tours y Buggy", description: "Asistencia directa con paseos en buggy y barco para que aproveches Búzios al máximo.", tag: "Actividades" },
+        { title: "Ambiente Familiar", description: "Entorno seguro, silencioso y amplio ideal para familias con niños.", tag: "Familia" },
+    ],
+    en: [
+        { title: "24-Hour Pool", description: "Excellent clean pool available all day to cool off from the Búzios heat.", tag: "Featured" },
+        { title: "Living Room & Kitchen", description: "Fully equipped lofts and suites with a living room and kitchenette for greater comfort.", tag: "Included" },
+        { title: "Excellent Location", description: "Steps from Praia do Forno and only 10 min walk to Rua das Pedras.", tag: "Location" },
+        { title: "Buffet Breakfast", description: "Start the day with fresh bread, cakes, and seasonal fresh fruit.", tag: "Included" },
+        { title: "Tours and Buggy", description: "Direct assistance with buggy and boat trips so you can make the most of Búzios.", tag: "Activities" },
+        { title: "Family Atmosphere", description: "Safe, quiet, and spacious environment ideal for families with children.", tag: "Family" },
+    ]
+};
 
 const amenitiesList = [
     {
         img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999663/hero_fltzup.webp",
-        title: "Piscina 24 Horas",
-        description: "Excelente piscina limpia y disponible todo el día para refrescarse del calor de Búzios.",
-        tag: "Destacado",
+        ...amenitiesTranslations[lang][0]
     },
     {
         img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999644/13_r5cfnw.webp",
-        title: "Sala y Cocina",
-        description: "Lofts y suítes totalmente equipados con sala de estar y cocina americana para mayor comodidad.",
-        tag: "Incluido",
+        ...amenitiesTranslations[lang][1]
     },
     {
         img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1776265144/foto-pessoas-caminhando-praia-brava-buzios-rj_j8eynt.jpg",
-        title: "Excelente Ubicación",
-        description: "A pasos de Praia do Forno y sólo 10 min caminando a Rua das Pedras.",
-        tag: "Ubicación",
+        ...amenitiesTranslations[lang][2]
     },
     {
         img: "https://images.unsplash.com/photo-1596252890311-caa6a004a6ee?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        title: "Desayuno Buffet",
-        description: "Empiece el día con pan recién hecho, pasteles, y fruta fresca de temporada.",
-        tag: "Incluido",
+        ...amenitiesTranslations[lang][3]
     },
     {
         img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999664/14_ktnke4.webp",
-        title: "Tours y Buggy",
-        description: "Asistencia directa con paseos en buggy y barco para que aproveches Búzios al máximo.",
-        tag: "Actividades",
+        ...amenitiesTranslations[lang][4]
     },
     {
         img: "https://res.cloudinary.com/dlf0evwxx/image/upload/v1775999653/11_nbpx5y.webp",
-        title: "Ambiente Familiar",
-        description: "Entorno seguro, silencioso y amplio ideal para familias con niños.",
-        tag: "Familia",
+        ...amenitiesTranslations[lang][5]
     },
 ];
 ---
@@ -53,14 +70,14 @@ const amenitiesList = [
         <!-- Heading -->
         <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-16">
             <div>
-                <span class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm block mb-2">Lo que te espera</span>
+                <span class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm block mb-2">{t('amenities.badge')}</span>
                 <h2 class="text-3xl md:text-5xl font-serif font-bold text-white leading-tight">
-                    Servicios que marcan <br class="hidden md:block"/>
-                    <span class="text-sand italic font-normal">la diferencia</span>
+                    {t('amenities.title')} <br class="hidden md:block"/>
+                    <span class="text-sand italic font-normal">{t('amenities.highlight')}</span>
                 </h2>
             </div>
             <p class="text-white/60 text-base max-w-xs leading-relaxed">
-                Descubre por qué nuestros huéspedes nos eligen como su segundo hogar en Búzios.
+                {t('amenities.p')}
             </p>
         </div>
 

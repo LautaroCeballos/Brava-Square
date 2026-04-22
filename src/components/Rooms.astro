@@ -1,32 +1,39 @@
 ---
-// src/components/Rooms.astro
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const roomsTranslations = {
+    pt: [
+        { name: "Loft Familiar", description: "Espaçoso apartamento com sala de estar separada e cozinha americana. Ideal para famílias que buscam conforto e praticidade perto da praia.", capacity: "Até 4 pessoas", bed: "1 Casal + 2 Solteiro", size: "45 m²" },
+        { name: "Suíte Superior", description: "Quarto aconchegante e iluminado com varanda com vista para o jardim. Roupa de cama premium e banheiro privativo.", capacity: "Duas pessoas", bed: "1 Casal King", size: "25 m²" },
+        { name: "Estúdio Natureza", description: "Simples, limpo e com o verdadeiro ambiente campestre de Búzios. Pequena kitchenette e acesso direto à piscina.", capacity: "Duas pessoas", bed: "1 Casal Queen", size: "30 m²" },
+    ],
+    es: [
+        { name: "Loft Familiar", description: "Espacioso apartamento con sala de estar separada y cocina americana. Ideal para familias buscando confort y practicidad cerca de la playa.", capacity: "Hasta 4 personas", bed: "1 Matrimonial + 2 Individuales", size: "45 m²" },
+        { name: "Suíte Superior", description: "Habitación acogedora y luminosa con balcón vistas al jardín. Ropa de cama premium y baño privado.", capacity: "Dos personas", bed: "1 Matrimonial King", size: "25 m²" },
+        { name: "Estudio Naturaleza", description: "Sencillo, limpio y con el verdadero ambiente campestre de Búzios. Pequeña kitchenette y acceso directo a la piscina.", capacity: "Dos personas", bed: "1 Matrimonial Queen", size: "30 m²" },
+    ],
+    en: [
+        { name: "Family Loft", description: "Spacious apartment with a separate living room and kitchenette. Ideal for families looking for comfort and convenience near the beach.", capacity: "Up to 4 people", bed: "1 Double + 2 Single", size: "45 m²" },
+        { name: "Superior Suite", description: "Cozy and bright room with a balcony overlooking the garden. Premium bedding and private bathroom.", capacity: "Two people", bed: "1 King Size", size: "25 m²" },
+        { name: "Nature Studio", description: "Simple, clean, and with the true country atmosphere of Búzios. Small kitchenette and direct access to the pool.", capacity: "Two people", bed: "1 Queen Size", size: "30 m²" },
+    ]
+};
+
 const rooms = [
     {
         image: "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
-        name: "Loft Familiar",
-        description:
-            "Espacioso apartamento con sala de estar separada y cocina americana. Ideal para familias buscando confort y practicidad cerca de la playa.",
-        capacity: "Hasta 4 personas",
-        bed: "1 Matrimonial + 2 Individuales",
-        size: "45 m²",
+        ...roomsTranslations[lang][0]
     },
     {
         image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=800&q=80",
-        name: "Suíte Superior",
-        description:
-            "Habitación acogedora y luminosa con balcón vistas al jardín. Ropa de cama premium y baño privado.",
-        capacity: "Dos personas",
-        bed: "1 Matrimonial King",
-        size: "25 m²",
+        ...roomsTranslations[lang][1]
     },
     {
         image: "https://images.unsplash.com/photo-1734456416941-416c08f0778e?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        name: "Estudio Naturaleza",
-        description:
-            "Sencillo, limpio y con el verdadero ambiente campestre de Búzios. Pequeña kitchenette y acceso directo a la piscina.",
-        capacity: "Dos personas",
-        bed: "1 Matrimonial Queen",
-        size: "30 m²",
+        ...roomsTranslations[lang][2]
     },
 ];
 ---
@@ -39,14 +46,14 @@ const rooms = [
             <div class="max-w-2xl">
                 <span
                     class="text-[#D96C06] font-semibold tracking-wider uppercase text-sm mb-2 block"
-                    >Nuestras Habitaciones</span
+                    >{t('rooms.badge')}</span
                 >
                 <h2
                     class="text-3xl md:text-5xl font-serif font-bold text-primary-green leading-tight"
                 >
-                    Espacios diseñados para tu <span
+                    {t('rooms.title')} <span
                         class="text-sage-green italic font-normal"
-                        >descanso absoluto</span
+                        >{t('rooms.highlight')}</span
                     >
                 </h2>
             </div>
@@ -55,7 +62,7 @@ const rooms = [
                 target="_blank"
                 class="hidden md:inline-flex items-center gap-2 bg-primary-green text-white px-6 py-3 rounded-full hover:bg-sage-green transition-colors font-medium"
             >
-                Ver Tarifas
+                {t('rooms.cta')}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5"
@@ -150,7 +157,7 @@ const rooms = [
                                 target="_blank"
                                 class="block w-full text-center border-2 border-[#D96C06] text-[#D96C06] hover:bg-[#D96C06] hover:text-white py-3 rounded-xl font-semibold transition-colors"
                             >
-                                Reservar este Loft
+                                {t('rooms.cta2')}
                             </a>
                         </div>
                     </div>

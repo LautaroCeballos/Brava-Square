@@ -7,6 +7,13 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://LautaroCeballos.github.io',
   base: '/Brava-Square',
+  i18n: {
+    defaultLocale: 'pt',
+    locales: ['es', 'pt', 'en'],
+    routing: {
+      prefixDefaultLocale: false
+    }
+  },
   vite: {
     plugins: [tailwindcss()]
   }
